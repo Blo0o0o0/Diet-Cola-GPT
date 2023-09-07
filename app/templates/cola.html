@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block icon %}
+<title>Diet Cola-GPT</title>
+<link rel="shortcut icon" href="{{ url_for('static', filename='kennyicon.png') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="container m-5">
+    <div class="row">
+        <div class="col h-100" style="overflow-y: scroll;">
+            <a href="/" class="d-flex justify-content-center"><img
+                    src="{{ url_for('static', filename='dc.png') }}" /></a>
+            <h1 class="display-1 text-center mb-5 mt-2">Diet Cola Chat</h1>
+
+            <div class="d-flex justify-content-center">
+                <form action="/" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.query(class_="form-control", size=40) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Chat!</button>
+                </form>
+            </div>
+        </div>
+        <div class="col h-100" style="overflow-y: scroll; max-height: 80vh;">
+            {% with flashed_messages = get_flashed_messages() %}
+            {% if flashed_messages %}
+            <div class="container">
+                <div class="card py-3 px-3">
+                    {% for chat_log in flashed_messages %}
+                    {% for message in chat_log %}
+                    <div class="card m-1">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ message.role }}</h5>
+                            <p class="card-text">{{ message.content }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}
